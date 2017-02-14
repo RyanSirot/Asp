@@ -1,7 +1,18 @@
-﻿@model ZenithDataLib.Event
+﻿@using ZenithDataLib
+@model ZenithDataLib.Event
 
 @{
     ViewBag.Title = "Edit Event";
+
+    List<Activity> activities = new List<Activity>();
+    var dictionary = new Dictionary<int, string>();
+
+
+    foreach (var item in ViewBag.activities)
+    {
+        dictionary.Add(item.Id, item.Description);
+    }
+    var slist = new SelectList(dictionary, "Key", "Value");
 }
 
 <h2>Edit Event</h2>
@@ -46,6 +57,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ActivityId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <!--Html.DropDownList(model => model.ActivityId, slist)-->
                 @Html.EditorFor(model => model.ActivityId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ActivityId, "", new { @class = "text-danger" })
             </div>
