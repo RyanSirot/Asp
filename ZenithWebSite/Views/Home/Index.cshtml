@@ -1,39 +1,50 @@
-﻿@model IEnumerable<ZenithDataLib.Event>
+﻿@using ZenithDataLib
+@model IEnumerable<ZenithDataLib.Event>
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-<h2>Zenith Society</h2>
-
+<div class="jumbotron">
+    <h2>Zenith Society</h2>
+</div>
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ActivityId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FromDateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ToDateTime)
-        </th>
-        <th></th>
-    </tr>
+    <caption>Events This Week</caption>
+    @{
+        List<Event> events = new List<Event>();
+        List<Activity> activities = new List<Activity>();
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Activity.ActivityId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FromDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ToDateTime)
-            </td>
-        </tr>
+        foreach (var item in ViewBag.activities)
+        {
+            activities.Add(item);
+        }
+
+        foreach (var item in Model)
+        {
+            //events.Add(item);
+            <tr class="date">
+                <th class="text-center" colspan="2">
+                    @Html.Raw(item.FromDateTime.ToString("dddd MMMM d, yyyy"))
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Raw(item.FromDateTime.ToString("hh:mm tt")) - @Html.Raw(item.ToDateTime.ToString("hh:mm tt"))
+                </td>
+                <td>
+                    @{ 
+                        foreach (var activity in activities)
+                        {
+                            if(activity.Id == item.ActivityId)
+                            {
+                                @Html.Raw(activity.Description);
+                            }
+                        }
+                    }
+                </td>
+            </tr>
+        }
     }
 
 </table>

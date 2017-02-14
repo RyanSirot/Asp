@@ -1,8 +1,17 @@
-﻿@model IEnumerable<ZenithDataLib.Event>
+﻿@using ZenithDataLib
+@model IEnumerable<ZenithDataLib.Event>
 
 
     @{
         ViewBag.Title = "Event Manager";
+
+
+        List<Activity> activities = new List<Activity>();
+
+        foreach (var item in ViewBag.activities)
+        {
+            activities.Add(item);
+        }
     }
 
     <h2>Event Manager</h2>
@@ -38,7 +47,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ActivityId)
+                    @{
+                        foreach (var activity in activities)
+                        {
+                            if (activity.Id == item.ActivityId)
+                            {
+                                @Html.DisplayFor(modelItem => activity.Description)
+                            }
+                        }
+                    }
+                    
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FromDateTime)

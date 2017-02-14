@@ -23,14 +23,14 @@ namespace ZenithDataLib
         [Display(Name = "Created By")]
         public String Username { get; set; }
 
-        [Display(Name = "Activity Identifier")]
+        [Display(Name = "Activity")]
         public int ActivityId { get; set; }
 
         [Display(Name = "Created on")]
         [DataType(DataType.DateTime)]
         public DateTime CreationDate { get; set; }
 
-        [Display(Name = "Event Is Active")]
+        [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
 
 
