@@ -39,6 +39,7 @@ namespace ZenithWebSite.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
+            ViewBag.ActivityID = new SelectList(db.Activities, "ActivityId", "Description");
             return View();
         }
 
@@ -55,7 +56,7 @@ namespace ZenithWebSite.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "Description", @event.ActivityId);
             return View(@event);
         }
 
